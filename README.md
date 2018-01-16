@@ -10,17 +10,17 @@ Server: Spring Boot (Java)
  
 # Table of Contents
 
-- Configuration
-- Demo
-- Game Rules
-- Implmentation Details
-    - Server
-        - Overview
-        - Datatypes
-        - API
-        - Game Logic
-    - Client
-        - Components
+- [Configuration](https://gitlab.com/hkailahi/client-server-hangman#configuration)
+- [Demo](https://gitlab.com/hkailahi/client-server-hangman#demo)
+- [Game Rules](https://gitlab.com/hkailahi/client-server-hangman#game-rules)
+- [Implementation Details](https://gitlab.com/hkailahi/client-server-hangman#implementation-details)
+    - [Server](https://gitlab.com/hkailahi/client-server-hangman#server)
+        - [Overview](https://gitlab.com/hkailahi/client-server-hangman#overview)
+        - [Datatypes](https://gitlab.com/hkailahi/client-server-hangman#datatypes)
+        - [API](https://gitlab.com/hkailahi/client-server-hangman#api)
+        - [Game Logic](https://gitlab.com/hkailahi/client-server-hangman#game-logic)
+    - [Client](https://gitlab.com/hkailahi/client-server-hangman#client)
+        - [Components](https://gitlab.com/hkailahi/client-server-hangman#components)
         
 # Configuration
 
