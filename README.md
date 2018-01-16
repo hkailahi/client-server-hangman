@@ -21,6 +21,7 @@ Server: Spring Boot (Java)
         - Game Logic
     - Client
         - Components
+        
 # Configuration
 
 Node and npm are installed locally (for now).

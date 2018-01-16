@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import logo from '../logo.svg';
-import './App.css';
 import WordBuilder from './WordBuilder/WordBuilder';
 import OptionsBuilder from './OptionsBuilder/OptionsBuilder'
 import Layout from './Layout/Layout';
@@ -13,18 +11,17 @@ function genCharArray(charA, charZ) {
     return a;
 }
 
-function qwertyTopChars() {
-  return "qwertyuiop".split('');
-}
-
-function qwertyMidChars() {
-  return "asdfghjkl".split('');
-}
-
-function qwertyBottomChars() {
-  return "zxcvbnm".split('');
-}
-
+// function qwertyTopChars() {
+//   return "qwertyuiop".split('');
+// }
+//
+// function qwertyMidChars() {
+//   return "asdfghjkl".split('');
+// }
+//
+// function qwertyBottomChars() {
+//   return "zxcvbnm".split('');
+// }
 
 class App extends Component {
 
@@ -32,47 +29,52 @@ class App extends Component {
         super(props);
 
         this.state = {
-            greeting: "helloworld",
-            word: ['h','e','l','l','o'],
+            word: "",
             uniqueChars: [],
             letters: genCharArray('a','z'),
-            lettersTop: qwertyTopChars(),
-            lettersMid: qwertyMidChars(),
-            lettersBottom: qwertyBottomChars(),
-            available: genCharArray('a','z')
+            available: genCharArray('a','z'),
+            lettersTop: [],
+            lettersMid: [],
+            lettersBottom: [],
+            guessableList: []
         }
     }
 
-    // componentDidMount() {
-    //     // ./node/npm start -> (proxy + param) = http://localhost:8080 + /greet
-    //     fetch("/greet").then(function(response) {
-    //         return response.text();
-    //     }).then((text) => {
-    //         this.setState({greeting: text});
-    //     }).catch();
-    // }
+    componentDidMount() {
+        // fetch("/newgame").then(() => {
+        //     return fetch("/game");
+        //   }).then((response) => {
+        //     return response.json();
+        //   }).then((data) => {
+        //     const guessables = [];
+        //     data.guesses.map((d) => guessables.push(d.answer));
+        //     const newWord = guessables.toString()
+        //     this.setState({
+        //         guessableList: guessables,
+        //         word: newWord
+        //     })
+        //   }).catch((error) => {
+        //     console.log(error);
+        //   });
+
+        this.setState({ word: "hello" })
+    }
 
     render() {
     return (
       <div>
         <Layout>
-          <div>
             <h1>Hangingman</h1>
             <WordBuilder
-              word={this.state.greeting.split("")}
+              word={this.state.word}
             ></WordBuilder>
-          </div>
-          <div>
             <OptionsBuilder
               top={this.state.lettersTop}
               mid={this.state.lettersMid}
               bottom={this.state.lettersBottom}
             ></OptionsBuilder>
-          </div>
-          <div>
             <h1>Stats</h1>
-            <text>{this.state.greeting}</text>
-          </div>
+            <h3>{this.state.word}</h3>
         </Layout>
       </div>
     );

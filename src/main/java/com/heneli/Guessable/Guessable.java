@@ -2,7 +2,8 @@ package com.heneli.Guessable;
 
 public class Guessable {
 
-    private transient char answer;
+//    private transient char answer;
+    private char answer;
     private boolean isGuessed;
     private int index;
 
