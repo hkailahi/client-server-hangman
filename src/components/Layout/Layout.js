@@ -2,7 +2,7 @@ import React from 'react';
 
 const layout = ( props ) => (
   <React.Fragment>
-    <div className="Layout">Layout Wrapper TOP DIV BOI</div>
+    <div className="Layout"></div>
     <main className="Content">
       {props.children}
     </main>

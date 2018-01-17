@@ -20,8 +20,8 @@ Server: Spring Boot (Java)
         - [API](https://gitlab.com/hkailahi/client-server-hangman#api)
         - [Game Logic](https://gitlab.com/hkailahi/client-server-hangman#game-logic)
     - [Client](https://gitlab.com/hkailahi/client-server-hangman#client)
+        - [Overview](https://gitlab.com/hkailahi/client-server-hangman#overview-1)
         - [Components](https://gitlab.com/hkailahi/client-server-hangman#components)
-        
 # Configuration
 
 Node and npm are installed locally (for now).
@@ -56,9 +56,9 @@ A Word contains:
 - List: Guessables 
 
 A Guessable is a container holding: 
-- a character
-- an index
-- status on whether it has been asked
+- Character: Correct answer
+- Integer: Index
+- Boolean: status on whether it has been asked
 
 ### API
 
