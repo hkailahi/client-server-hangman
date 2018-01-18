@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import Layout from './Layout/Layout';
 import Hangman from './Hangman/Hangman'
 import GuessableBuilder from './Guessable/GuessableBuilder';
-import OptionsBuilder from './Options/OptionsBuilder'
+import OptionsBuilder from './Options/OptionsBuilder';
+import Stats from './Stats/Stats'
 
 class App extends Component {
 
@@ -14,12 +15,17 @@ class App extends Component {
             guessableList: [],
             guessableCorrect: [],
             clickedLetter: "",
-            parts: []
+            parts: [],
+            isLoading: true,
+            gamestate: "",
+            gamesPlayed: 0
         }
 
         this.letterClickHandler = this.letterClickHandler.bind(this);
+        this.newGameClickHandler = this.newGameClickHandler.bind(this);
         this.fetchNewGame = this.fetchNewGame.bind(this);
         this.fetchGuessableAnswer = this.fetchGuessableAnswer.bind(this);
+
     }
 
     componentDidMount() {
@@ -30,6 +36,19 @@ class App extends Component {
       const letter = event.target.value;
       this.setState({ clickedLetter: letter });
       this.fetchGuessableAnswer(letter);
+    }
+
+    newGameClickHandler = (event) => {
+      this.setState({
+        word: " ",
+        guessableList: [],
+        guessableCorrect: [],
+        clickedLetter: "",
+        parts: [],
+        isLoading: true,
+        gamestate: "",
+      })
+      this.fetchNewGame();
     }
 
     fetchNewGame() {
@@ -55,7 +74,8 @@ class App extends Component {
           this.setState({
               guessableList: guessables,
               guessableCorrect: guessCorrect,
-              word: newStr
+              word: newStr,
+              isLoading: false
           });
           console.log("Component mounted. Fetch complete.")
         }).catch((error) => {
@@ -66,10 +86,10 @@ class App extends Component {
     fetchGuessableAnswer(letter) {
       const val = {letter: letter};
 
-      console.log("Trying to PUT { \"letter\": \"" + letter + "\" }to /game...");
+      console.log("Trying to PUT { \"letter\": \"" + letter + "\" } to /game...");
 
       fetch("/game", {
-                        method: 'put',
+                        method: 'post',
                         body: JSON.stringify(val),
                         headers: new Headers({
                           'Content-Type': 'application/json'
@@ -103,6 +123,28 @@ class App extends Component {
               word: newStr,
               parts: newParts
           });
+          return fetch("/game/status");
+        }).then((response) => {
+          return response.json();
+        }).then((data) => {
+          let status = "";
+          let played = this.state.gamesPlayed;
+
+          if (data.status === "won") {
+            console.log("END GAME - WON !!!");
+            status = "won";
+            played++;
+          }
+          else if (data.status === "lost") {
+            console.log("END GAME - LOST !!!");
+            status = "lost";
+            played++;
+          }
+
+          this.setState({
+            gamestate: status,
+            gamesPlayed: played
+          });
         }).catch((error) => {
           console.log(error);
         });
@@ -110,13 +152,20 @@ class App extends Component {
 
     render() {
     return (
-      <Layout>
+      <Layout gamestate={this.state.gamestate} newgamehandler={this.newGameClickHandler}>
           <h1>Hangman</h1>
           <Hangman parts={this.state.parts}/>
           <GuessableBuilder word={this.state.word}></GuessableBuilder>
-          <OptionsBuilder clickedletter={this.letterClickHandler}/>
-          <h1>Stats</h1>
-          <h3>{this.state.word}</h3>
+          { this.state.isLoading ?
+              <h2>Loading word...</h2>
+            :
+              <OptionsBuilder clickedletter={this.letterClickHandler}/>
+          }
+          { (this.state.gamesPlayed > 0) ?
+              <Stats />
+            :
+              <div></div>
+          }
       </Layout>
     );
   }
