@@ -22,6 +22,7 @@ Server: Spring Boot (Java)
     - [Client](https://gitlab.com/hkailahi/client-server-hangman#client)
         - [Overview](https://gitlab.com/hkailahi/client-server-hangman#overview-1)
         - [Components](https://gitlab.com/hkailahi/client-server-hangman#components)
+
 # Configuration
 
 Node and npm are installed locally (for now).

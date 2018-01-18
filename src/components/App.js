@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Layout from './Layout/Layout';
+import Hangman from './Hangman/Hangman'
 import GuessableBuilder from './Guessable/GuessableBuilder';
 import OptionsBuilder from './Options/OptionsBuilder'
 
@@ -12,7 +13,8 @@ class App extends Component {
             word: " ",
             guessableList: [],
             guessableCorrect: [],
-            clickedLetter: ""
+            clickedLetter: "",
+            parts: []
         }
 
         this.letterClickHandler = this.letterClickHandler.bind(this);
@@ -22,6 +24,12 @@ class App extends Component {
 
     componentDidMount() {
         this.fetchNewGame();
+    }
+
+    letterClickHandler = (event) => {
+      const letter = event.target.value;
+      this.setState({ clickedLetter: letter });
+      this.fetchGuessableAnswer(letter);
     }
 
     fetchNewGame() {
@@ -74,41 +82,42 @@ class App extends Component {
           data.guesses.map((d) => guessCorrect.push(d.isGuessed));
 
           let newStr = "";
+          let newParts = this.state.parts;
+          let isChanged = false;
 
           for (let i=0; i<guessCorrect.length; i++) {
             if (guessCorrect[i] !== this.state.guessableCorrect[i]) {
               newStr += this.state.clickedLetter;
+              isChanged = true;
             } else {
               newStr += this.state.word[i];
             }
           }
 
+          if (!isChanged) {
+            newParts.push(val.letter);
+          }
+
           this.setState({
               guessableCorrect: guessCorrect,
-              word: newStr
+              word: newStr,
+              parts: newParts
           });
         }).catch((error) => {
           console.log(error);
         });
     }
 
-    letterClickHandler = (event) => {
-      const letter = event.target.value;
-      this.setState({ clickedLetter: letter });
-      this.fetchGuessableAnswer(letter);
-    }
-
     render() {
     return (
-      <div>
-        <Layout>
-            <h1>Hangingman</h1>
-            <GuessableBuilder word={this.state.word}></GuessableBuilder>
-            <OptionsBuilder clickedletter={this.letterClickHandler}/>
-            <h1>Stats</h1>
-            <h3>{this.state.word}</h3>
-        </Layout>
-      </div>
+      <Layout>
+          <h1>Hangman</h1>
+          <Hangman parts={this.state.parts}/>
+          <GuessableBuilder word={this.state.word}></GuessableBuilder>
+          <OptionsBuilder clickedletter={this.letterClickHandler}/>
+          <h1>Stats</h1>
+          <h3>{this.state.word}</h3>
+      </Layout>
     );
   }
 }

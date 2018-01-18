@@ -34,7 +34,6 @@ public class GameLogic {
 
     public static Word getNewWord() {
         long value = ThreadLocalRandom.current().nextLong(numWords);
-//        System.out.println("HT Size: " + allWords.size() + " Random: " + value);
         return allWords.get(value);
     }
 

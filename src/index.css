@@ -11,31 +11,32 @@ body {
   font-weight: 400;
   font-size: 16px;
   line-height: 1.7;
-  padding: 30px;
+  padding: 0 10%;
   background:#aaa;
   font:300 15px/24px "Open Sans", sans-serif;
   color:#fff;
   user-select:none;
   text-shadow:0 0 1px #aaa;
+  width: 100%;
+  height: 100%;
 }
 
 h1 {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  color: #000;
-  text-shadow: 2px 2px 5px #fff;
+  color: #fff;
 }
 
-h1 { font-size:5em; line-height:1.5; }
+h1 { font-size:4.5em; line-height:1.5; }
 
 .char-row {
   display: flex;
   justify-content: space-between;
   margin: 0 auto 7px;
-  /* min-width: 600px; */
   max-width: 850px;
   line-height: 50px;
+  margin-bottom: 20px;
 }
 
 .char {
@@ -86,11 +87,7 @@ button {
   pointer-events: none;
 }
 
-/* .HotKey {
-  visibility: hidden;
-} */
-
-.one { flex:1; } /* one */
+.one { flex:1; }
 
 .key-row .key:last-child { margin:0; }
 
@@ -102,4 +99,196 @@ button {
 .end {
   margin-left: 120px;
   margin-right: 120px;
+}
+
+.wrong-letter-container {
+  display: inline-block;
+  justify-content: center;
+  align-content: center;
+  background: #444;
+  height: 365px;
+  width: 150px;
+  margin: 20px 15px;
+  border-radius: 20px;
+}
+
+.wrong-letter {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  color: #fff;
+  padding-top: 5px;
+  font-weight: 400;
+
+}
+
+.character-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.hangman-container {
+  display: inline-block;
+  justify-content: center;
+  align-content: center;
+  background: #fff;
+  height: 365px;
+  width: 400px;
+  margin: 20px 15px;
+  border-radius: 20px;
+}
+
+.gallow {
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+  top: 0;
+  width: 15px;
+  height: 65px;
+  border-radius: 5px;
+  background-color: #5b310e;
+}
+
+.body-part {
+  color: #000;
+  font-weight: 600;
+}
+
+.head {
+  position: relative;
+  z-index: 3;
+  margin: 0 auto;
+  top: -20px;
+  width: 70px;
+  height: 80px;
+  background-color: #FFCD82;
+  border-radius: 100px;
+}
+
+.neck {
+  position: relative;
+  z-index: 2;
+  margin: 0 auto;
+  top: -45px;
+  right: 0;
+  width: 20px;
+  height: 40px;
+  background-color: #f4bc6a;
+}
+
+.corpus {
+  position: relative;
+  z-index: 5;
+  margin: 0 auto;
+  top: -50px;
+  width: 60px;
+  height: 95px;
+  border-radius: 5px;
+  background-color: #12A56B;
+}
+
+.left-arm {
+  position: relative;
+  z-index: 2;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  margin: 0 auto;
+  width: 22px;
+  height: 80px;
+  left: -41px;
+  top: -150px;
+  background-color: #71CC54;
+  border-radius: 5px;
+}
+
+.left-hand {
+  position: relative;
+  z-index: 1;
+  border-radius: 0 0 50% 50%;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  top: -165px;
+  left: -75px;
+  margin: 0 auto;
+  width: 15px;
+  height: 15px;
+  background-color: #f4bc6a;
+}
+
+.right-arm {
+  position: relative;
+  z-index: 2;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  margin: 0 auto;
+  left: 47px;
+  top: -242px;
+  width: 22px;
+  height: 80px;
+  background-color: #12A56B;
+  border-radius: 5px;
+}
+
+.right-hand {
+  position: relative;
+  z-index: 1;
+  border-radius: 0 0 50% 50%;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  top: -260px;
+  left: 77px;
+  margin: 0 auto;
+  width: 15px;
+  height: 15px;
+  background-color: #f4bc6a;
+}
+
+.left-leg {
+  position: relative;
+  margin: 0 auto;
+  background-color: #3C3F64;
+  z-index: 2;
+  top: -250px;
+  left: -20px;
+  -webkit-transform: rotate(15deg);
+  transform: rotate(15deg);
+  height: 70px;
+  width: 25px;
+}
+
+.right-leg {
+  position: relative;
+  margin: 0 auto;
+  background-color: #3C3F64;
+  z-index: 2;
+  top: -320px;
+  left: 21px;
+  z-index: 3;
+  -webkit-transform: rotate(-15deg);
+  transform: rotate(-15deg);
+  height: 70px;
+  width: 25px;
+}
+
+.eyes {
+  position: relative;
+  margin: 0 auto;
+  background-color: #000;
+  background-repeat: space;
+  z-index: 5;
+  top: -478px;
+  left: 2px;
+  height: 15px;
+  width: 12px;
+  border-radius: 10px;
+}
+
+.wrong-answers {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  text-decoration: #f5f5f5 underline;
+  color: #f5f5f5;
+  padding-top: 10px;
 }

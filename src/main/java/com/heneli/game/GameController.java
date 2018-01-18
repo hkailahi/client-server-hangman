@@ -16,15 +16,6 @@ public class GameController {
     public String getWord() {
 //        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
         Gson gson = new Gson();
-
-//        System.out.println("\n\n");
-//        System.out.println("Get from /game ....");
-//        System.out.println("GameSessionManager - " + gameSessionManager);
-//        System.out.println("GameSession - " + gameSessionManager.getCurrentGame());
-//        System.out.println("Word - " + gameSessionManager.getCurrentGame().getWord());
-//        System.out.println();
-//        System.out.println("\n\n");
-
         return gson.toJson(gameSessionManager.getCurrentGame().getWord());
     }
 
