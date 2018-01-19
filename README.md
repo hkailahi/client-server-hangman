@@ -12,7 +12,7 @@ Server: Spring Boot (Java)
 
  - You will need Java, Maven, and NPM to build and run this project. 
      - Maven is a Java build/package manager that will use the pom.xml file.
-     - NPM is a Java build/package manager that will use the package.json and package-lock.json files.
+     - NPM is a Javascript build/package manager that will use the package.json and package-lock.json files.
  - Run the following in one terminal. Keep it active.
 
 ```bash
