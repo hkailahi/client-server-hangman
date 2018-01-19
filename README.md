@@ -8,6 +8,26 @@ Server: Spring Boot (Java)
 
 # Configuration
 
+## Quick Start
+
+ - You will need Java, Maven, and NPM to build and run this project. 
+     - Maven is a Java build/package manager that will use our pom.xml file.
+     - NPM is a Java build/package manager that will use our package.json and package-lock.json files.
+ - Run the following in one terminal. Keep it active.
+
+```bash
+    $ mvn clean package
+    $ java -jar target/hangman-app-0.0.1-SNAPSHOT.jar
+``` 
+- Run the following in a new terminal. Keep it active.
+
+```bash
+    $ npm start
+``` 
+    
+
+## Step By Step
+
 - Install JDK and make sure your JAVA_HOME environment variable is set.
     - Check with echo
         
@@ -43,17 +63,19 @@ Server: Spring Boot (Java)
         $ mvn clean package
       ```
       
-    - This is build and install libraries + dependecies for BOTH the frontend and the backend
+    - This will build and install the libraries + dependecies for BOTH the frontend and the backend
     - NOTE: It may take a while the first time
 - Start the server
-    - In separate terminal, run the following and keep active until finished.
+    - In separate terminal, run the following and keep active until finished playing the game.
+        -  You can quit by entering Control-C.
    
     ```bash
     $ java -jar target/hangman-app-0.0.1-SNAPSHOT.jar
     ```
     - This will launch the web server (Tomcat).
 - Start the client
-    - In separate terminal, run the following and keep active until finished.
+    - In separate terminal, run the following and keep active until finished playing the game.
+        -  You can quit by entering Control-C
    
     ```
       $ npm start
