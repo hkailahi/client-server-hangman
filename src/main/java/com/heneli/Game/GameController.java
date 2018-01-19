@@ -10,7 +10,7 @@ import java.util.Map;
 @RestController
 public class GameController {
 
-    GameSessionManager gameSessionManager = new GameSessionManager();
+    private static GameSessionManager gameSessionManager = new GameSessionManager();
 
     @RequestMapping(value = "/game", method = RequestMethod.GET)
     public String getWord() {

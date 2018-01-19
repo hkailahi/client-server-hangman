@@ -10,7 +10,7 @@ public class GameSession {
     private int numIncorrect;
     private int numCorrect;
 
-    private GameLogic logic = new GameLogic();
+    private static GameLogic logic = new GameLogic();
 
     public GameSession() {
         this.word = logic.getNewWord();

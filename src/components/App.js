@@ -12,7 +12,6 @@ class App extends Component {
 
         this.state = {
             word: " ",
-            guessableList: [],
             guessableCorrect: [],
             clickedLetter: "",
             parts: [],
@@ -46,7 +45,6 @@ class App extends Component {
     newGameClickHandler = (event) => {
       this.setState({
         word: " ",
-        guessableList: [],
         guessableCorrect: [],
         clickedLetter: "",
         parts: [],
@@ -58,17 +56,12 @@ class App extends Component {
     }
 
     fetchNewGame() {
-      console.log("Fetching from /newgame...");
       fetch("/newgame", { method: 'post' }).then(() => {
-          console.log("Response from /newgame.");
-          console.log("GET word from /game...");
           return fetch("/game");
         }).then((response) => {
-          console.log("GET successful. Word recieved from /game.");
           return response.json();
         }).then((data) => {
-          const guessables = [], guessCorrect = [];
-          data.guesses.map((d) => guessables.push(d.answer));
+          const guessCorrect = [];
           data.guesses.map((d) => guessCorrect.push(d.isGuessed));
 
           let newStr = "";
@@ -78,12 +71,10 @@ class App extends Component {
           }
 
           this.setState({
-              guessableList: guessables,
               guessableCorrect: guessCorrect,
               word: newStr,
               isLoading: false
           });
-          console.log("Component mounted. Fetch complete.")
         }).catch((error) => {
           console.log(error);
         });
@@ -92,8 +83,6 @@ class App extends Component {
     fetchGuessableAnswer(letter) {
       const val = {letter: letter};
 
-      console.log("Trying to PUT { \"letter\": \"" + letter + "\" } to /game...");
-
       fetch("/game", {
                         method: 'post',
                         body: JSON.stringify(val),
@@ -101,7 +90,6 @@ class App extends Component {
                           'Content-Type': 'application/json'
                         })
         }).then((response) => {
-          console.log("PUT successful.");
           return response.json();
         }).then((data) => {
           const guessCorrect = [];
@@ -136,11 +124,9 @@ class App extends Component {
           let status = "";
 
           if (data.status === "won") {
-            console.log("END GAME - WON !!!");
             status = "won";
           }
           else if (data.status === "lost") {
-            console.log("END GAME - LOST !!!");
             status = "lost";
           }
 

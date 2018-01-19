@@ -1,7 +1,7 @@
 package com.heneli.Game;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameSessionManager {
 
@@ -9,7 +9,7 @@ public class GameSessionManager {
     private static GameSession currGame;
 
     public GameSessionManager() {
-        gamesPlayed = new ArrayList<>();
+        gamesPlayed = new CopyOnWriteArrayList<>();
         addGame();
     }
 
