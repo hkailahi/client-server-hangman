@@ -1,4 +1,4 @@
-package com.heneli.game;
+package com.heneli.Game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +15,7 @@ public class GameSessionManager {
 
     public void addGame() {
         GameSession newGame = new GameSession();
+
         this.currGame = newGame;
         gamesPlayed.add(newGame);
     }

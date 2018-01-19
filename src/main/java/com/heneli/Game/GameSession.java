@@ -1,4 +1,4 @@
-package com.heneli.game;
+package com.heneli.Game;
 
 import com.heneli.Word.Word;
 

@@ -59,7 +59,7 @@ class App extends Component {
 
     fetchNewGame() {
       console.log("Fetching from /newgame...");
-      fetch("/newgame").then(() => {
+      fetch("/newgame", { method: 'post' }).then(() => {
           console.log("Response from /newgame.");
           console.log("GET word from /game...");
           return fetch("/game");

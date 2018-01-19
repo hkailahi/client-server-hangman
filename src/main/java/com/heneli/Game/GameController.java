@@ -1,4 +1,4 @@
-package com.heneli.game;
+package com.heneli.Game;
 
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
@@ -14,14 +14,14 @@ public class GameController {
 
     @RequestMapping(value = "/game", method = RequestMethod.GET)
     public String getWord() {
-        Gson gson = new Gson();
-        return gson.toJson(gameSessionManager.getCurrentGame().getWord());
+        return new Gson().toJson(gameSessionManager.getCurrentGame().getWord());
     }
 
-    @PostMapping("/game")
-    public ResponseEntity putLetter(@RequestBody Map<String, Character> map) {
+    @RequestMapping(value = "/game", method = RequestMethod.POST)
+    public ResponseEntity postLetter(@RequestBody Map<String, Character> map) {
         gameSessionManager.getCurrentGame().guessChar(map.get("letter"));
         String json = new Gson().toJson(gameSessionManager.getCurrentGame().getWord());
+
         return new ResponseEntity(json, HttpStatus.OK);
     }
 
@@ -58,9 +58,9 @@ public class GameController {
         return sb.toString();
     }
 
-    @RequestMapping(value = "/newgame", method = RequestMethod.GET)
+    @RequestMapping(value = "/newgame", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public void getNewGame() {
+    public void createNewGame() {
         gameSessionManager.addGame();
     }
 
