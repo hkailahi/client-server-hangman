@@ -25,11 +25,11 @@ public class GameSession {
     public boolean guessHandler(char c) {
         if (!word.getUniqueChars().contains(c)) {
             numIncorrect++;
-            if (isLost()) return false;
+            if (isLost()) { return false; }
         }
 
-        numCorrect += logic.containsLetter(word, c); // modifies in-place
-        if (isWon()) return true;
+        numCorrect += logic.containsLetter(word, c);
+        if (isWon()) { return true; }
 
         return false;
     }

@@ -11,8 +11,6 @@ public class Word {
 
     private transient String content;
     private transient Set<Character> uniqueChars;
-//    private String content;
-//    private Set<Character> uniqueChars;
     private List<Guessable> guesses;
 
     public Word(String content) {

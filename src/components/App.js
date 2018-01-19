@@ -18,24 +18,29 @@ class App extends Component {
             parts: [],
             isLoading: true,
             gamestate: "",
-            gamesPlayed: 0
+            wins: 0,
+            losses: 0,
+            correct: 0,
+            incorrect: 0
         }
 
         this.letterClickHandler = this.letterClickHandler.bind(this);
         this.newGameClickHandler = this.newGameClickHandler.bind(this);
         this.fetchNewGame = this.fetchNewGame.bind(this);
         this.fetchGuessableAnswer = this.fetchGuessableAnswer.bind(this);
-
+        this.fetchStats = this.fetchStats.bind(this);
     }
 
     componentDidMount() {
         this.fetchNewGame();
+        this.fetchStats();
     }
 
     letterClickHandler = (event) => {
       const letter = event.target.value;
       this.setState({ clickedLetter: letter });
       this.fetchGuessableAnswer(letter);
+      this.fetchStats();
     }
 
     newGameClickHandler = (event) => {
@@ -46,9 +51,10 @@ class App extends Component {
         clickedLetter: "",
         parts: [],
         isLoading: true,
-        gamestate: "",
+        gamestate: ""
       })
       this.fetchNewGame();
+      this.fetchStats();
     }
 
     fetchNewGame() {
@@ -121,33 +127,44 @@ class App extends Component {
           this.setState({
               guessableCorrect: guessCorrect,
               word: newStr,
-              parts: newParts
+              parts: newParts,
           });
           return fetch("/game/status");
         }).then((response) => {
           return response.json();
         }).then((data) => {
           let status = "";
-          let played = this.state.gamesPlayed;
 
           if (data.status === "won") {
             console.log("END GAME - WON !!!");
             status = "won";
-            played++;
           }
           else if (data.status === "lost") {
             console.log("END GAME - LOST !!!");
             status = "lost";
-            played++;
           }
 
           this.setState({
             gamestate: status,
-            gamesPlayed: played
           });
         }).catch((error) => {
           console.log(error);
         });
+    }
+
+    fetchStats() {
+      fetch("/stats").then((response) => {
+        return response.json();
+      }).then((data) => {
+        this.setState({
+          wins: data.wins,
+          losses: data.losses,
+          correct: data.correct,
+          incorrect: data.incorrect,
+        });
+      }).catch((error) => {
+        console.log(error);
+      })
     }
 
     render() {
@@ -161,11 +178,12 @@ class App extends Component {
             :
               <OptionsBuilder clickedletter={this.letterClickHandler}/>
           }
-          { (this.state.gamesPlayed > 0) ?
-              <Stats />
-            :
-              <div></div>
-          }
+          <Stats
+            wins={this.state.wins}
+            losses={this.state.losses}
+            correct={this.state.correct}
+            incorrect={this.state.incorrect}
+          />
       </Layout>
     );
   }

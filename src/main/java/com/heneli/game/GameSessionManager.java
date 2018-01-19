@@ -11,12 +11,10 @@ public class GameSessionManager {
     public GameSessionManager() {
         gamesPlayed = new ArrayList<>();
         addGame();
-
     }
 
     public void addGame() {
         GameSession newGame = new GameSession();
-
         this.currGame = newGame;
         gamesPlayed.add(newGame);
     }
@@ -48,6 +46,4 @@ public class GameSessionManager {
                 .mapToLong(GameSession::getNumIncorrect)
                 .sum();
     }
-
-
 }

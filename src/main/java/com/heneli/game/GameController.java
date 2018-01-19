@@ -6,13 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @RestController
 public class GameController {
 
     GameSessionManager gameSessionManager = new GameSessionManager();
-    AtomicInteger gamesPlayed = new AtomicInteger(0);
 
     @RequestMapping(value = "/game", method = RequestMethod.GET)
     public String getWord() {
@@ -23,9 +21,7 @@ public class GameController {
     @PostMapping("/game")
     public ResponseEntity putLetter(@RequestBody Map<String, Character> map) {
         gameSessionManager.getCurrentGame().guessChar(map.get("letter"));
-
         String json = new Gson().toJson(gameSessionManager.getCurrentGame().getWord());
-
         return new ResponseEntity(json, HttpStatus.OK);
     }
 
@@ -34,18 +30,9 @@ public class GameController {
         StringBuilder sb = new StringBuilder();
 
         sb.append("{\"status\": \"");
-
-        if (gameSessionManager.getCurrentGame().isWon()) {
-            sb.append("won");
-            gamesPlayed.getAndIncrement();
-        }
-        else if (gameSessionManager.getCurrentGame().isLost()) {
-            sb.append("lost");
-            gamesPlayed.getAndIncrement();
-        }
-        else
-            sb.append("in-progress");
-
+        if (gameSessionManager.getCurrentGame().isWon()) { sb.append("won"); }
+        else if (gameSessionManager.getCurrentGame().isLost()) { sb.append("lost"); }
+        else { sb.append("in-progress"); }
         sb.append("\"}");
 
         return sb.toString();
