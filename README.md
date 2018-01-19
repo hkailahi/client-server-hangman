@@ -11,8 +11,8 @@ Server: Spring Boot (Java)
 ## Quick Start
 
  - You will need Java, Maven, and NPM to build and run this project. 
-     - Maven is a Java build/package manager that will use our pom.xml file.
-     - NPM is a Java build/package manager that will use our package.json and package-lock.json files.
+     - Maven is a Java build/package manager that will use the pom.xml file.
+     - NPM is a Java build/package manager that will use the package.json and package-lock.json files.
  - Run the following in one terminal. Keep it active.
 
 ```bash
@@ -63,7 +63,7 @@ Server: Spring Boot (Java)
         $ mvn clean package
       ```
       
-    - This will build and install the libraries + dependecies for BOTH the frontend and the backend
+    - This will build and install the libraries + dependencies for BOTH the frontend and the backend
     - NOTE: It may take a while the first time
 - Start the server
     - In separate terminal, run the following and keep active until finished playing the game.
