@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Layout from './Layout/Layout';
 import Hangman from './Hangman/Hangman'
 import GuessableBuilder from './Guessable/GuessableBuilder';
-import OptionsBuilder from './Options/OptionsBuilder';
+import KeyboardBuilder from './Keyboard/KeyboardBuilder';
 import Stats from './Stats/Stats'
 
 class App extends Component {
@@ -176,7 +176,7 @@ class App extends Component {
           { this.state.isLoading ?
               <h2>Loading word...</h2>
             :
-              <OptionsBuilder clickedletter={this.letterClickHandler}/>
+              <KeyboardBuilder clickedletter={this.letterClickHandler}/>
           }
           <Stats
             wins={this.state.wins}

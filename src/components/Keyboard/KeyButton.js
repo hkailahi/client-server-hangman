@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class Option extends Component {
+class KeyButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -28,4 +28,4 @@ class Option extends Component {
   }
 }
 
-export default Option;
+export default KeyButton;
