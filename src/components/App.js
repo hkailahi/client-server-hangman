@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Layout from './Layout/Layout';
-import Hangman from './Hangman/Hangman'
+import Hangman from './Hangman/Hangman';
 import GuessableBuilder from './Guessable/GuessableBuilder';
 import KeyboardBuilder from './Keyboard/KeyboardBuilder';
-import Stats from './Stats/Stats'
+import Stats from './Stats/Stats';
 
 class App extends Component {
 
@@ -13,7 +13,7 @@ class App extends Component {
         this.state = {
             word: " ",
             guessableCorrect: [],
-            clickedLetter: "",
+            selectedLetter: "",
             parts: [],
             isLoading: true,
             gamestate: "",
@@ -21,13 +21,14 @@ class App extends Component {
             losses: 0,
             correct: 0,
             incorrect: 0
-        }
+        };
 
         this.letterClickHandler = this.letterClickHandler.bind(this);
         this.newGameClickHandler = this.newGameClickHandler.bind(this);
         this.fetchNewGame = this.fetchNewGame.bind(this);
         this.fetchGuessableAnswer = this.fetchGuessableAnswer.bind(this);
         this.fetchStats = this.fetchStats.bind(this);
+        this.letterPressHandler = this.letterPressHandler.bind(this);
     }
 
     componentDidMount() {
@@ -37,20 +38,31 @@ class App extends Component {
 
     letterClickHandler = (event) => {
       const letter = event.target.value;
-      this.setState({ clickedLetter: letter });
+      this.setState({ selectedLetter: letter });
       this.fetchGuessableAnswer(letter);
       this.fetchStats();
+    }
+
+    letterPressHandler = (event) => {
+      if (this.state.gamestate === "won" || this.state.gamestate === "lost")
+        return false;
+
+      const letter = event.key;
+      this.setState({ selectedLetter: letter });
+      this.fetchGuessableAnswer(letter);
+      this.fetchStats();
+      return true;
     }
 
     newGameClickHandler = (event) => {
       this.setState({
         word: " ",
         guessableCorrect: [],
-        clickedLetter: "",
+        selectedLetter: "",
         parts: [],
         isLoading: true,
         gamestate: ""
-      })
+      });
       this.fetchNewGame();
       this.fetchStats();
     }
@@ -101,7 +113,7 @@ class App extends Component {
 
           for (let i=0; i<guessCorrect.length; i++) {
             if (guessCorrect[i] !== this.state.guessableCorrect[i]) {
-              newStr += this.state.clickedLetter;
+              newStr += this.state.selectedLetter;
               isChanged = true;
             } else {
               newStr += this.state.word[i];
@@ -122,16 +134,21 @@ class App extends Component {
           return response.json();
         }).then((data) => {
           let status = "";
+          let currStateWord = this.state.word;
 
           if (data.status === "won") {
             status = "won";
           }
           else if (data.status === "lost") {
             status = "lost";
+            // TODO implemnent API/backend support for the below
+            currStateWord = data.word;
+            // TODO last fetch should have correct word, so setState({ word: data.word}) ??
           }
 
           this.setState({
             gamestate: status,
+            word: currStateWord
           });
         }).catch((error) => {
           console.log(error);
@@ -154,24 +171,24 @@ class App extends Component {
     }
 
     render() {
-    return (
-      <Layout gamestate={this.state.gamestate} newgamehandler={this.newGameClickHandler}>
-          <h1>Hangman</h1>
-          <Hangman parts={this.state.parts}/>
-          <GuessableBuilder word={this.state.word}></GuessableBuilder>
-          { this.state.isLoading ?
-              <h2>Loading word...</h2>
-            :
-              <KeyboardBuilder clickedletter={this.letterClickHandler}/>
-          }
-          <Stats
-            wins={this.state.wins}
-            losses={this.state.losses}
-            correct={this.state.correct}
-            incorrect={this.state.incorrect}
-          />
-      </Layout>
-    );
+      return (
+        <Layout gamestate={this.state.gamestate} newgamehandler={this.newGameClickHandler}>
+            <h1>Hangman</h1>
+            <Hangman parts={this.state.parts}/>
+            <GuessableBuilder word={this.state.word}></GuessableBuilder>
+            { this.state.isLoading ?
+                <h2>Loading word...</h2>
+              :
+                <KeyboardBuilder clickedletter={this.letterClickHandler} pressedletter={this.letterPressHandler}/>
+            }
+            <Stats
+              wins={this.state.wins}
+              losses={this.state.losses}
+              correct={this.state.correct}
+              incorrect={this.state.incorrect}
+            />
+        </Layout>
+      );
   }
 }
 
