@@ -1,6 +1,7 @@
 package com.heneli.Game;
 
 import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,7 +10,14 @@ import java.util.Map;
 @RestController
 public class GameController {
 
-    private static GameSessionManager gameSessionManager = new GameSessionManager();
+//    @Autowired
+//    private static GameSessionManager gameSessionManager = new GameSessionManager();
+    @Autowired
+    private final GameSessionManager gameSessionManager;
+
+    public GameController(GameSessionManager gameSessionManager) {
+        this.gameSessionManager = gameSessionManager;
+    }
 
     @RequestMapping(value = "/game", method = RequestMethod.GET)
     public String getWord() {
@@ -70,5 +78,13 @@ public class GameController {
     public void createNewGame() {
         gameSessionManager.addGame();
     }
+
+//    public static GameSessionManager getGameSessionManager() {
+//        return gameSessionManager;
+//    }
+//
+//    public static void setGameSessionManager(GameSessionManager gameSessionManager) {
+//        GameController.gameSessionManager = gameSessionManager;
+//    }
 
 }

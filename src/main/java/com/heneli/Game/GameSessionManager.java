@@ -1,8 +1,11 @@
 package com.heneli.Game;
 
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+@Service
 public class GameSessionManager {
 
     private static List<GameSession> gamesPlayed;
