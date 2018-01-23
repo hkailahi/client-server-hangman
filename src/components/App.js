@@ -19,6 +19,8 @@ class App extends Component {
             gamestate: "",
             wins: 0,
             losses: 0,
+            totalCorrect: 0,
+            totalIncorrect: 0,
             correct: 0,
             incorrect: 0
         };
@@ -61,7 +63,9 @@ class App extends Component {
         selectedLetter: "",
         parts: [],
         isLoading: true,
-        gamestate: ""
+        gamestate: "",
+        correct: 0,
+        incorrect: 0
       });
       this.fetchNewGame();
       this.fetchStats();
@@ -108,6 +112,8 @@ class App extends Component {
           data.guesses.map((d) => guessCorrect.push(d.isGuessed));
 
           let newStr = "";
+          let currCorrect = this.state.correct;
+          let currIncorrect = this.state.incorrect;
           let newParts = this.state.parts;
           let isChanged = false;
 
@@ -115,6 +121,7 @@ class App extends Component {
             if (guessCorrect[i] !== this.state.guessableCorrect[i]) {
               newStr += this.state.selectedLetter;
               isChanged = true;
+              currCorrect++;
             } else {
               newStr += this.state.word[i];
             }
@@ -122,6 +129,7 @@ class App extends Component {
 
           if (!isChanged) {
             newParts.push(val.letter);
+            currIncorrect++;
           }
 
           if (data["word"] != null) {
@@ -132,6 +140,8 @@ class App extends Component {
               guessableCorrect: guessCorrect,
               word: newStr,
               parts: newParts,
+              correct: currCorrect,
+              incorrect: currIncorrect
           });
           return fetch("/game/status");
         }).then((response) => {
@@ -161,8 +171,8 @@ class App extends Component {
         this.setState({
           wins: data.wins,
           losses: data.losses,
-          correct: data.correct,
-          incorrect: data.incorrect,
+          totalCorrect: data.correct,
+          totalIncorrect: data.incorrect,
         });
       }).catch((error) => {
         console.log(error);
@@ -185,6 +195,8 @@ class App extends Component {
               losses={this.state.losses}
               correct={this.state.correct}
               incorrect={this.state.incorrect}
+              totalcorrect={this.state.totalCorrect}
+              totalincorrect={this.state.totalIncorrect}
             />
         </Layout>
       );

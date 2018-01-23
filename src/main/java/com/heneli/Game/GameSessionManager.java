@@ -31,9 +31,9 @@ public class GameSessionManager {
     }
 
     public long countLosses() {
-        return gamesPlayed.stream()
-                .filter(g -> g.isLost())
-                .count();
+        // Webpack server is doing a double refresh on React client startup
+        // I am treating every refresh beyond startup as a loss
+        return gamesPlayed.size() - countWins() - 2;
     }
 
     public long countCorrect() {
