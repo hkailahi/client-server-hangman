@@ -2,7 +2,6 @@ package com.heneli.Game;
 
 import com.google.gson.Gson;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -17,12 +16,36 @@ public class GameController {
         return new Gson().toJson(gameSessionManager.getCurrentGame().getWord());
     }
 
-    @RequestMapping(value = "/game", method = RequestMethod.POST)
-    public ResponseEntity postLetter(@RequestBody Map<String, Character> map) {
-        gameSessionManager.getCurrentGame().guessChar(map.get("letter"));
-        String json = new Gson().toJson(gameSessionManager.getCurrentGame().getWord());
+//    @RequestMapping(value = "/game", method = RequestMethod.POST)
+//    public ResponseEntity postLetter(@RequestBody Map<String, Character> map) {
+//        gameSessionManager.getCurrentGame().guessChar(map.get("letter"));
+//        StringBuilder sb = new StringBuilder(new Gson().toJson(gameSessionManager.getCurrentGame().getWord()));
+//
+//        if (gameSessionManager.getCurrentGame().isLost()) {
+//            int last = sb.lastIndexOf("}");
+//            if (last >= 0) { sb.delete(last, sb.length()); }
+//
+//            sb.append(", \"word\": " + gameSessionManager.getCurrentGame().getWord().getContent() + "\"");
+//            sb.append("}");
+//        }
+//
+//        return new ResponseEntity(sb.toString(), HttpStatus.OK);
+//    }
 
-        return new ResponseEntity(json, HttpStatus.OK);
+    @RequestMapping(value = "/game", method = RequestMethod.POST)
+    public String postLetter(@RequestBody Map<String, Character> map) {
+        gameSessionManager.getCurrentGame().guessChar(map.get("letter"));
+        StringBuilder sb = new StringBuilder(new Gson().toJson(gameSessionManager.getCurrentGame().getWord()));
+
+        if (gameSessionManager.getCurrentGame().isLost()) {
+            int last = sb.lastIndexOf("}");
+            if (last >= 0) { sb.delete(last, sb.length()); }
+
+            sb.append(", \"word\": \"" + gameSessionManager.getCurrentGame().getWord().getContent() + "\"");
+            sb.append("}");
+        }
+
+        return sb.toString();
     }
 
     @RequestMapping(value = "/game/status", method = RequestMethod.GET)

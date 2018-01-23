@@ -43,8 +43,8 @@ class KeyButton extends Component {
     return (
       <button
         className="key one"
-        onKeyPress={this.handleKeyPress}
-        onClick={this.handleClick}
+        onKeyPress={() => this.handleKeyPress}
+        onClick={() => this.handleClick}
         value={this.props.letter}
         disabled={this.state.disabled}
         tabIndex="0"

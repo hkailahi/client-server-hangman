@@ -24,11 +24,11 @@ class App extends Component {
         };
 
         this.letterClickHandler = this.letterClickHandler.bind(this);
+        this.letterPressHandler = this.letterPressHandler.bind(this);
         this.newGameClickHandler = this.newGameClickHandler.bind(this);
         this.fetchNewGame = this.fetchNewGame.bind(this);
         this.fetchGuessableAnswer = this.fetchGuessableAnswer.bind(this);
         this.fetchStats = this.fetchStats.bind(this);
-        this.letterPressHandler = this.letterPressHandler.bind(this);
     }
 
     componentDidMount() {
@@ -124,6 +124,10 @@ class App extends Component {
             newParts.push(val.letter);
           }
 
+          if (data["word"] != null) {
+            newStr = data["word"];
+          }
+
           this.setState({
               guessableCorrect: guessCorrect,
               word: newStr,
@@ -134,21 +138,16 @@ class App extends Component {
           return response.json();
         }).then((data) => {
           let status = "";
-          let currStateWord = this.state.word;
 
           if (data.status === "won") {
             status = "won";
           }
           else if (data.status === "lost") {
             status = "lost";
-            // TODO implemnent API/backend support for the below
-            currStateWord = data.word;
-            // TODO last fetch should have correct word, so setState({ word: data.word}) ??
           }
 
           this.setState({
-            gamestate: status,
-            word: currStateWord
+            gamestate: status
           });
         }).catch((error) => {
           console.log(error);
