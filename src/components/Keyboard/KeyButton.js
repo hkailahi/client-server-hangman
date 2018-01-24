@@ -12,11 +12,11 @@ class KeyButton extends Component {
   }
 
   componentDidMount() {
-    document.body.addEventListener("keyup", this.handleKeyPress);
+    document.body.addEventListener("keypress", this.handleKeyPress);
   }
 
   componentWillUnmount() {
-    document.body.removeEventListener("keyup", this.handleKeyPress);
+    document.body.removeEventListener("keypress", this.handleKeyPress);
   }
 
   handleClick = (event) => {
