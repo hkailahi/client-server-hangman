@@ -21,19 +21,19 @@ public class GameController {
 
     @RequestMapping(value = "/game", method = RequestMethod.GET)
     public String getWord() {
-        return new Gson().toJson(gameSessionManager.getCurrentGame().getWord());
+        return new Gson().toJson(gameSessionManager.getCurrGame().getWord());
     }
 
     @RequestMapping(value = "/game", method = RequestMethod.POST)
     public String postLetter(@RequestBody Map<String, Character> map) {
-        gameSessionManager.getCurrentGame().guessHandler(map.get("letter"));
-        StringBuilder sb = new StringBuilder(new Gson().toJson(gameSessionManager.getCurrentGame().getWord()));
+        gameSessionManager.getCurrGame().guessHandler(map.get("letter"));
+        StringBuilder sb = new StringBuilder(new Gson().toJson(gameSessionManager.getCurrGame().getWord()));
 
-        if (gameSessionManager.getCurrentGame().isLost()) {
+        if (gameSessionManager.getCurrGame().isLost()) {
             int last = sb.lastIndexOf("}");
             if (last >= 0) { sb.delete(last, sb.length()); }
 
-            sb.append(", \"word\": \"" + gameSessionManager.getCurrentGame().getWord().getContent() + "\"");
+            sb.append(", \"word\": \"" + gameSessionManager.getCurrGame().getWord().getContent() + "\"");
             sb.append("}");
         }
 
@@ -45,8 +45,8 @@ public class GameController {
         StringBuilder sb = new StringBuilder();
 
         sb.append("{\"status\": \"");
-        if (gameSessionManager.getCurrentGame().isWon()) { sb.append("won"); }
-        else if (gameSessionManager.getCurrentGame().isLost()) { sb.append("lost"); }
+        if (gameSessionManager.getCurrGame().isWon()) { sb.append("won"); }
+        else if (gameSessionManager.getCurrGame().isLost()) { sb.append("lost"); }
         else { sb.append("in-progress"); }
         sb.append("\"}");
 

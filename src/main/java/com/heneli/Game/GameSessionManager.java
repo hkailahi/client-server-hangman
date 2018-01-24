@@ -23,7 +23,12 @@ public class GameSessionManager {
         gamesPlayed.add(newGame);
     }
 
-    public GameSession getCurrentGame() {
+    public void addGame(GameSession gameSession) {
+        this.currGame = gameSession;
+        gamesPlayed.add(gameSession);
+    }
+
+    public GameSession getCurrGame() {
         return currGame;
     }
 
@@ -34,7 +39,7 @@ public class GameSessionManager {
     }
 
     public long countLosses() {
-        // Webpack server is doing a double refresh on React client startup
+        // Webpack server (frontend) is doing a double refresh on startup, hence subtracting 2
         // I am treating every refresh beyond startup as a loss
         return gamesPlayed.size() - countWins() - 2;
     }
@@ -49,5 +54,9 @@ public class GameSessionManager {
         return gamesPlayed.stream()
                 .mapToLong(GameSession::getNumIncorrect)
                 .sum();
+    }
+
+    public static List<GameSession> getGamesPlayed() {
+        return gamesPlayed;
     }
 }
