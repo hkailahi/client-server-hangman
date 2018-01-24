@@ -26,7 +26,7 @@ public class GameController {
 
     @RequestMapping(value = "/game", method = RequestMethod.POST)
     public String postLetter(@RequestBody Map<String, Character> map) {
-        gameSessionManager.getCurrentGame().guessChar(map.get("letter"));
+        gameSessionManager.getCurrentGame().guessHandler(map.get("letter"));
         StringBuilder sb = new StringBuilder(new Gson().toJson(gameSessionManager.getCurrentGame().getWord()));
 
         if (gameSessionManager.getCurrentGame().isLost()) {

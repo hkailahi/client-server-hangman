@@ -18,11 +18,9 @@ public class GameSession {
         this.numCorrect = 0;
     }
 
-    public boolean guessChar(char c) {
-        return guessHandler(c);
-    }
-
     public boolean guessHandler(char c) {
+        // Returns true if game is won
+        // Increments numCorrect or numIncorrect
         if (!word.getUniqueChars().contains(c)) {
             numIncorrect++;
             if (isLost()) { return false; }
