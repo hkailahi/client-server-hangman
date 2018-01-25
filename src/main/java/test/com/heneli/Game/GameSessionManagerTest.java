@@ -61,7 +61,6 @@ public class GameSessionManagerTest {
     @Test
     public void addGame() {
         // starting size should be 5, one from constructor + throwaway + (g1,g2,g3)
-//        int startSize = 4, endSize = 5;
         int startSize = 5, endSize = 6;
 
         GameSession addedGame = new GameSession();
