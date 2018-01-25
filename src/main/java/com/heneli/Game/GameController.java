@@ -10,14 +10,10 @@ import java.util.Map;
 @RestController
 public class GameController {
 
-//    @Autowired
-//    private static GameSessionManager gameSessionManager = new GameSessionManager();
     @Autowired
-    private final GameSessionManager gameSessionManager;
+    private static final GameSessionManager gameSessionManager = new GameSessionManager();
 
-    public GameController(GameSessionManager gameSessionManager) {
-        this.gameSessionManager = gameSessionManager;
-    }
+    public GameController() {}
 
     @RequestMapping(value = "/game", method = RequestMethod.GET)
     public String getWord() {
@@ -60,14 +56,10 @@ public class GameController {
 
         long wins = gameSessionManager.countWins();
         long losses = gameSessionManager.countLosses();
-        long correct = gameSessionManager.countCorrect();
-        long incorrect = gameSessionManager.countIncorrect();
 
         sb.append("{");
         sb.append("\"wins\": " + wins + ", ");
-        sb.append("\"losses\": " + losses + ", ");
-        sb.append("\"correct\": " + correct + ", ");
-        sb.append("\"incorrect\": " + incorrect);
+        sb.append("\"losses\": " + losses);
         sb.append("}");
 
         return sb.toString();
@@ -78,13 +70,4 @@ public class GameController {
     public void createNewGame() {
         gameSessionManager.addGame();
     }
-
-//    public static GameSessionManager getGameSessionManager() {
-//        return gameSessionManager;
-//    }
-//
-//    public static void setGameSessionManager(GameSessionManager gameSessionManager) {
-//        GameController.gameSessionManager = gameSessionManager;
-//    }
-
 }

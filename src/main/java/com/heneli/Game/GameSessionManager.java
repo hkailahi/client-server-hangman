@@ -40,8 +40,14 @@ public class GameSessionManager {
 
     public long countLosses() {
         // Webpack server (frontend) is doing a double refresh on startup, hence subtracting 2
+        // See more -> https://github.com/webpack/webpack/issues/2983
         // I am treating every refresh beyond startup as a loss
-        return gamesPlayed.size() - countWins() - 2;
+        long completedLosses =  gamesPlayed.stream()
+                .mapToLong(GameSession::getNumCorrect)
+                .sum();
+        long refreshes = gamesPlayed.size() - countWins() - completedLosses;
+
+        return completedLosses + refreshes - 2;
     }
 
     public long countCorrect() {

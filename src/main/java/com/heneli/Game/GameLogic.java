@@ -31,7 +31,6 @@ public class GameLogic {
         }
     }
 
-
     public static Word getNewWord() {
         long value = ThreadLocalRandom.current().nextLong(numWords);
         return allWords.get(value);
@@ -50,16 +49,8 @@ public class GameLogic {
         return occurences;
     }
 
-    public static Map<Long, Word> getAllWords() {
-        return allWords;
-    }
-
     public static void setAllWords(Map<Long, Word> allWords) {
         GameLogic.allWords = allWords;
-    }
-
-    public static long getNumWords() {
-        return numWords;
     }
 
     public static void setNumWords(long numWords) {
