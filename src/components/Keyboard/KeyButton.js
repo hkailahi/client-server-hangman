@@ -27,7 +27,6 @@ class KeyButton extends Component {
   handleKeyPress = event => {
     if (event.key === this.props.letter) {
       if (!this.state.pressedLetters.has(event.key)) {
-        console.log(event.key + " was pressed! ");
         if (this.props.pressedletter(event)) {
           const prevPressedLetters = this.state.pressedLetters;
           this.setState({
