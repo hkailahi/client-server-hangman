@@ -9,7 +9,7 @@ function getBodyParts(index) {
 
   switch(index) {
     case 0:
-      bodyPart += " gallow"
+      bodyPart += " gallow";
       break;
     case 1:
       bodyPart += " head";
@@ -24,19 +24,19 @@ function getBodyParts(index) {
       bodyPart += " left-arm";
       break;
     case 5:
-      bodyPart += " left-hand"
+      bodyPart += " left-hand";
       break;
     case 6:
-      bodyPart += " right-arm"
+      bodyPart += " right-arm";
       break;
     case 7:
-      bodyPart += " right-hand"
+      bodyPart += " right-hand";
       break;
     case 8:
-      bodyPart += " left-leg"
+      bodyPart += " left-leg";
       break;
     case 9:
-      bodyPart += " right-leg"
+      bodyPart += " right-leg";
       break;
     default:
       bodyPart += "";

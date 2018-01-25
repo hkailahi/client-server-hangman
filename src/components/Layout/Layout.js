@@ -1,13 +1,14 @@
-import React from 'react';
-import GameState from './GameState'
+import React from "react";
+import GameState from "./GameState";
 
-const Layout = ( props ) => (
+const Layout = props => (
   <React.Fragment>
-    <div className="Layout"></div>
-    <GameState gamestate={props.gamestate} newgamehandler={props.newgamehandler}/>
-    <main className="Content">
-      {props.children}
-    </main>
+    <div className="Layout" />
+    <GameState
+      gamestate={props.gamestate}
+      newgamehandler={props.newgamehandler}
+    />
+    <main className="Content">{props.children}</main>
   </React.Fragment>
 );
 

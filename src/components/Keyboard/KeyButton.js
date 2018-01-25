@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
 
 class KeyButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      disabled: '',
+      disabled: "",
       pressedLetters: new Set()
     };
     this.handleClick = this.handleClick.bind(this);
@@ -19,15 +19,15 @@ class KeyButton extends Component {
     document.body.removeEventListener("keypress", this.handleKeyPress);
   }
 
-  handleClick = (event) => {
+  handleClick = event => {
     this.props.clickedletter(event);
     this.setState({ disabled: true });
-  }
+  };
 
-  handleKeyPress = (event) => {
+  handleKeyPress = event => {
     if (event.key === this.props.letter) {
-      if(!this.state.pressedLetters.has(event.key)) {
-        console.log(event.key + ' was pressed! ')
+      if (!this.state.pressedLetters.has(event.key)) {
+        console.log(event.key + " was pressed! ");
         if (this.props.pressedletter(event)) {
           const prevPressedLetters = this.state.pressedLetters;
           this.setState({
@@ -37,7 +37,7 @@ class KeyButton extends Component {
         }
       }
     }
-  }
+  };
 
   render() {
     return (
@@ -48,8 +48,8 @@ class KeyButton extends Component {
         value={this.props.letter}
         disabled={this.state.disabled}
         tabIndex="0"
-        >
-          {this.props.letter}
+      >
+        {this.props.letter}
       </button>
     );
   }

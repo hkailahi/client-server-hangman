@@ -1,13 +1,14 @@
-import React from 'react';
-import KeyboardRow from './KeyboardRow'
+import React from "react";
+import KeyboardRow from "./KeyboardRow";
 
-const KeyboardBuilder = (props) => (
+const KeyboardBuilder = props => (
   <div className="OptionsTop">
     <KeyboardRow
       row={qwertyTopChars()}
       clickedletter={props.clickedletter}
       pressedletter={props.pressedletter}
-      addClass=""/>
+      addClass=""
+    />
     <KeyboardRow
       row={qwertyMidChars()}
       clickedletter={props.clickedletter}
@@ -24,15 +25,15 @@ const KeyboardBuilder = (props) => (
 );
 
 function qwertyTopChars() {
-  return "qwertyuiop".split('');
+  return "qwertyuiop".split("");
 }
 
 function qwertyMidChars() {
-  return "asdfghjkl".split('');
+  return "asdfghjkl".split("");
 }
 
 function qwertyBottomChars() {
-  return "zxcvbnm".split('');
+  return "zxcvbnm".split("");
 }
 
 export default KeyboardBuilder;
